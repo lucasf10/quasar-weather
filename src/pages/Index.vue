@@ -6,7 +6,7 @@
         placeholder="Search"
         dark
         borderless
-        @keyup.enter="getWeather"
+        @keyup.enter="() => getWeather()"
       >
         <template v-slot:before>
           <q-icon
@@ -16,7 +16,13 @@
         </template>
 
         <template v-slot:append>
-          <q-btn round dense flat icon="search" />
+          <q-btn
+            @click="() => getWeather()"
+            round
+            dense
+            flat
+            icon="search"
+          />
         </template>
       </q-input>
     </div>
@@ -82,24 +88,43 @@ export default {
     }
   },
   methods: {
-    getLocation() {
+    async getLocation() {
       this.$q.loading.show()
-      navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude
-        this.lon = position.coords.longitude
+      navigator.geolocation.getCurrentPosition(postion => {
+        this.lat = postion.coords.latitude
+        this.lon = postion.coords.longitude
 
-        this.getWeather(null, true)
+        this.getWeather(true)
+      }, (err) => {
+        this.handleError('Location not granted.')
       })
     },
-    async getWeather(_, byCurrentLocation = false) {
+    async getWeather(byCurrentLocation = false) {
       this.$q.loading.show()
-      const query = byCurrentLocation ? `lat=${this.lat}&lon=${this.lon}` : `q=${this.search}`
-      const { data } = await this.$axios(`${this.apiUrl}?${query}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`)
-      this.setWeatherData(data)
+      try {
+        const query = byCurrentLocation ? `lat=${this.lat}&lon=${this.lon}` : `q=${this.search}`
+        const { data } = await this.$axios(`${this.apiUrl}?${query}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`)
+        this.setWeatherData(data)
+      } catch (err) {
+        this.handleError('City not found.')
+      }
+      this.search = ''
     },
     setWeatherData(data) {
       this.weatherData = data
       this.$q.loading.hide()
+    },
+    handleError(errMsg) {
+      this.$q.loading.hide()
+      this.$q.notify({
+        message: errMsg,
+        icon: 'warning',
+        iconSize: '20px',
+        position: 'top',
+        actions: [
+          { label: 'Dismiss', color: 'white' }
+        ]
+      })
     }
   }
 }
