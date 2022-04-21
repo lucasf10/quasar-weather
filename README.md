@@ -40,8 +40,10 @@ http://localhost:8080
 - Yarn
 - Quasar
 - Electron
+- Cordova
 
 ## Features included
 
 - Get weather data from current position
 - Get weather data from a searched city
+- Support for Web, Windows, MacOS and iOS.
