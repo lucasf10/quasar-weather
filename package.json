@@ -10,13 +10,17 @@
     "dev": "yarn quasar dev"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "@quasar/extras": "^1.0.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^1.0.0"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0"
+    "@quasar/app": "^2.0.0",
+    "devtron": "^1.4.0",
+    "electron": "^9.0.0",
+    "electron-debug": "^3.0.1",
+    "electron-devtools-installer": "^3.0.0"
   },
   "browserslist": [
     "last 10 Chrome versions",

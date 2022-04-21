@@ -88,16 +88,26 @@ export default {
     }
   },
   methods: {
-    async getLocation() {
+    getLocation() {
       this.$q.loading.show()
-      navigator.geolocation.getCurrentPosition(postion => {
-        this.lat = postion.coords.latitude
-        this.lon = postion.coords.longitude
 
-        this.getWeather(true)
-      }, (err) => {
-        this.handleError('Location not granted.')
-      })
+      if (this.$q.platform.is.electron) {
+        this.$axios.get('https://freegeoip.app/json').then(response => {
+          this.lat = response.data.latitude
+          this.lon = response.data.longitude
+
+          this.getWeather(true)
+        })
+      } else {
+        navigator.geolocation.getCurrentPosition(postion => {
+          this.lat = postion.coords.latitude
+          this.lon = postion.coords.longitude
+
+          this.getWeather(true)
+        }, (err) => {
+          this.handleError('Location not granted.')
+        })
+      }
     },
     async getWeather(byCurrentLocation = false) {
       this.$q.loading.show()

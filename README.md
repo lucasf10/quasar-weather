@@ -39,6 +39,7 @@ http://localhost:8080
 - Vue.js
 - Yarn
 - Quasar
+- Electron
 
 ## Features included
 
