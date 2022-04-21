@@ -1,24 +1,46 @@
-# Quasar Weather (quasar-weather)
+# Quasar Weather
 
-A Quasar Project
+A simple weather app with current location and search features.
 
-## Install the dependencies
+## How to run this app
+
+1. Create an account on [Open Weather Map](https://openweathermap.org/api) and copy your API key.
+
+2. Paste your API key on quasar.conf.js:
+```bash
+build: {
+  env: {
+    OPEN_WEATHER_API_KEY: <YOUR API KEY>
+  },
+  ...
+}
+```
+
+3. Install all dependencies with yarn:
+
 ```bash
 yarn
-# or
-npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+4. Start app:
+
 ```bash
-quasar dev
+yarn quasar dev
 ```
 
+5. Access:
 
-### Build the app for production
 ```bash
-quasar build
+http://localhost:8080
 ```
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v1.quasar.dev/quasar-cli/quasar-conf-js).
+## Technologies used
+
+- Vue.js
+- Yarn
+- Quasar
+
+## Features included
+
+- Get weather data from current position
+- Get weather data from a searched city
