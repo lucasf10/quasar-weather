@@ -46,4 +46,4 @@ http://localhost:8080
 
 - Get weather data from current position
 - Get weather data from a searched city
-- Support for Web, Windows, MacOS and iOS.
+- Support for Web, Windows, MacOS, Android and iOS.
